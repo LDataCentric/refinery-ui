@@ -20,7 +20,7 @@
                                         <th scope="col"
                                             class="px-3 py-2 text-center text-xs font-medium uppercase tracking-wide text-gray-500">
                                             Data Type</th>
-                                        <th scope="col"
+                                        <!--<th scope="col"
                                             class="px-3 py-2 text-center text-xs font-medium uppercase tracking-wide text-gray-500">
                                             <div
                                                 class="flex flex-row flex-nowrap items-center justify-center leading-3">
@@ -52,7 +52,7 @@
                                                     </ng-template>
                                                 </div>
                                             </div>
-                                        </th>
+                                        </th>-->
                                         <th scope="col"
                                             class="px-3 py-2 text-center text-xs font-medium uppercase tracking-wide text-gray-500">
                                             State
@@ -78,11 +78,11 @@
                                                 </option>
                                             </select>
                                         </td>
-                                        <td class="whitespace-nowrap text-center px-3 py-2 text-sm text-gray-500">
+                                        <!--<td class="whitespace-nowrap text-center px-3 py-2 text-sm text-gray-500">
                                             <label class="cursor-pointer">
                                                 <input formControlName="isPrimaryKey" type="checkbox">
                                             </label>
-                                        </td>
+                                        </td>-->
                                         <td class="whitespace-nowrap text-center px-3 py-2 text-sm text-gray-500">
                                             <kern-heuristic-statuses [status]="attributeContainer.get('state').value"
                                                 page="attributes" initialCaption="Needs execution">
@@ -156,17 +156,10 @@
                             data-tip="Creates a snapshot compressed file of your current project">
                             <div
                                 class="mr-1 inline-flex items-center px-2.5 py-2 border border-gray-300 shadow-sm text-xs font-semibold rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="mr-1 icon icon-tabler icon-tabler-camera inline-block" width="16" height="16"
-                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                    <path
-                                        d="M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2">
-                                    </path>
-                                    <circle cx="12" cy="13" r="3"></circle>
-                                </svg>
-                                Create project snapshot
+                                <span class="material-symbols-outlined mr-1 h-4 w-5" style="font-size:18px">
+                                  system_update_alt
+                                  </span>
+                                Export project
                             </div>
                         </div>
                     </label>
@@ -480,8 +473,7 @@
                                     <div class="tooltip tooltip-right" data-tip="Choose attribute that will be encoded">
                                         <span class="card-title mb-0 label-text flex"><span
                                                 class="cursor-help underline"
-                                                style="text-decoration-style: dotted;text-underline-offset: 2px;text-decoration-color: #22c55e">Target
-                                                Attribute</span></span>
+                                                style="text-decoration-style: dotted;text-underline-offset: 2px;text-decoration-color: #22c55e">Field</span></span>
                                     </div>
                                     <select formControlName="targetAttribute"
                                         class="select select-bordered select-sm max-w-xs"
@@ -491,7 +483,7 @@
                                             {{attribute.name}}
                                         </option>
                                     </select>
-                                    <div class="tooltip tooltip-right"
+                                    <!--<div class="tooltip tooltip-right"
                                         data-tip="One embedding per record vs. per token">
                                         <span class="card-title mb-0 label-text flex"><span
                                                 class="cursor-help underline"
@@ -504,11 +496,11 @@
                                             [value]="granularity.value">
                                             {{granularity.name}}
                                         </option>
-                                    </select>
+                                    </select>-->
                                     <div class="tooltip tooltip-right" data-tip="Name of your Hugging Face model">
                                         <span class="card-title mb-0 label-text flex"><span
                                                 class="cursor-help underline"
-                                                style="text-decoration-style: dotted;text-underline-offset: 2px;text-decoration-color: #22c55e">Configuration</span></span>
+                                                style="text-decoration-style: dotted;text-underline-offset: 2px;text-decoration-color: #22c55e">Model</span></span>
                                     </div>
                                     <div class="dropdown"
                                         data-intercom-target="Settings Page Embedding Mask Handle Selector With Suggestions"
@@ -575,7 +567,7 @@
                             </div>
                         </ng-template>
                     </div>
-                    <div class="tooltip tooltip-right"
+                    <!--<div class="tooltip tooltip-right"
                         [attr.data-tip]="!isManaged ? 'Check out our hosted version to use this function' : 'See which models are downloaded'">
                         <button
                             class="ml-1 inline-block items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-semibold rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none cursor-pointer"
@@ -595,7 +587,7 @@
                                 See downloaded models
                             </span>
                         </button>
-                    </div>
+                    </div>-->
 
                 </div>
             </div>
@@ -616,9 +608,9 @@
                                 <table formArrayName="labelingTasks" class="min-w-full divide-y divide-gray-300">
                                     <thead class="bg-gray-50">
                                         <tr>
-                                            <th scope="col"
+                                            <!--<th scope="col"
                                                 class="px-3 py-2 text-center text-xs font-medium uppercase tracking-wide text-gray-500">
-                                                Target</th>
+                                                Field</th>-->
                                             <th scope="col"
                                                 class="px-3 py-2 text-center text-xs font-medium uppercase tracking-wide text-gray-500">
                                                 Name</th>
@@ -636,11 +628,11 @@
                                     <tbody class="divide-y divide-gray-200">
                                         <tr *ngFor="let labelingTaskContainer of labelingTasksArray.controls; let j = index"
                                             [ngClass]="j%2!=0 ? 'bg-gray-50':'bg-white'" [formGroupName]="j">
-                                            <td class="whitespace-nowrap text-center px-3 py-2 text-sm text-gray-500">
+                                            <!--<td class="whitespace-nowrap text-center px-3 py-2 text-sm text-gray-500">
                                                 {{labelingTaskContainer.get("targetName").value}}
-                                            </td>
+                                            </td>-->
                                             <td class="whitespace-nowrap text-center px-3 py-2 text-sm text-gray-500">
-                                                <p class="break-words w-52 cursor-pointer"
+                                                <p class="break-words cursor-pointer"
                                                     [ngClass]="labelingTaskContainer.get('nameOpen').value?'hidden':null"
                                                     (click)="openTaskName(labelingTaskContainer)">
                                                     {{labelingTaskContainer.get("name").value}}</p>
@@ -838,12 +830,12 @@
                         Afterward, you can select the label task type depending on the target type</div>
                     <div class="grid grid-cols-2 gap-2 items-center max-w-sm"
                         style="grid-template-columns: max-content auto;">
-                        <div class="tooltip tooltip-right" data-tip="Choose attribute to be labeled">
+                        <div class="tooltip tooltip-right hidden" data-tip="Choose attribute to be labeled">
                             <span class="cursor-help card-title mb-0 label-text flex"><span class="underline"
-                                    style="text-decoration-style: dotted;text-underline-offset: 2px;text-decoration-color: #22c55e">Target
-                                    attribute</span></span>
+                                    style="text-decoration-style: dotted;text-underline-offset: 2px;text-decoration-color: #22c55e">Field
+                                  </span></span>
                         </div>
-                        <select #labelingTaskTarget class="select select-bordered select-sm">
+                        <select #labelingTaskTarget class="select select-bordered select-sm hidden">
                             <option value="@@NO_ATTRIBUTE@@" selected="selected">Full Record</option>
                             <option *ngFor="let attribute of attributesArrayUsableUploaded" [value]="attribute.id">
                                 {{attribute.name}}
