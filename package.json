@@ -1,12 +1,12 @@
 {
   "name": "kern-frontspine",
   "version": "0.0.0",
-  "watch":{
-    "build":{
-      "patterns":[
+  "watch": {
+    "build": {
+      "patterns": [
         "src"
       ],
-      "extensions":"ts,html,scss"
+      "extensions": "ts,html,scss"
     }
   },
   "scripts": {

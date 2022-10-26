@@ -151,7 +151,7 @@
             </div>
         </ng-container>
 
-        <ng-container *ngIf="organizationInactive && isManaged">
+        <!-- <ng-container *ngIf="organizationInactive && isManaged">
             <div class="h-screen relative bg-white overflow-hidden">
                 <div class="hidden lg:block lg:absolute lg:inset-0" aria-hidden="true">
                     <svg class="h-screen absolute top-0 left-1/2 transform translate-x-64 -translate-y-8" width="640"
@@ -215,12 +215,12 @@
                     </main>
                 </div>
             </div>
-        </ng-container>
+        </ng-container> -->
 
-        <ng-container *ngIf="organizationInactive && !isManaged">
+        <ng-container *ngIf="organizationInactive">
             <div class="h-screen relative bg-white overflow-hidden">
                 <div  class="hidden lg:block lg:absolute lg:inset-0" aria-hidden="true">
-                    <svg class="h-screen absolute top-0 left-1/2 transform translate-x-64 -translate-y-8" width="640"
+                    <!-- <svg class="h-screen absolute top-0 left-1/2 transform translate-x-64 -translate-y-8" width="640"
                         height="784" fill="none" viewBox="0 0 640 784">
                         <defs>
                             <pattern id="9ebea6f4-a1f5-4d96-8c4e-4c2abf658047" x="118" y="0" width="20" height="20"
@@ -230,7 +230,7 @@
                         </defs>
                         <rect y="72" width="640" height="640" class="text-gray-50" fill="currentColor" />
                         <rect x="118" width="404" height="784" fill="url(#9ebea6f4-a1f5-4d96-8c4e-4c2abf658047)" />
-                    </svg>
+                    </svg> -->
                 </div>
                 <div class="relative pt-6 pb-16 sm:pb-24 lg:pb-32">
                     <main class="mt-16 mx-auto max-w-7xl px-4 sm:mt-24 sm:px-6 lg:mt-32">
@@ -239,24 +239,24 @@
                                 <div *ngIf="canCreateOrg" class="text-gray-500 font-semibold text-base uppercase">
                                     Preparing your account. Please reload the page.
                                 </div>
-                                <div *ngIf="!canCreateOrg" class="text-gray-500 font-semibold text-base uppercase">
-                                    Maximum number of users reached. Please look into our managed version.</div>
-                                <div class="font-normal text-xl text-gray-500 mt-5">
-                                    <ng-template [ngIf]="canCreateOrg" [ngIfElse]="premiumVersion">
+                                <!-- <div *ngIf="!canCreateOrg" class="text-gray-500 font-semibold text-base uppercase">
+                                    Maximum number of users reached. Please look into our managed version.</div> -->
+                                <!-- <div class="font-normal text-xl text-gray-500 mt-5"> -->
+                                    <!-- <ng-template [ngIf]="canCreateOrg" [ngIfElse]="premiumVersion">
                                         In the meantime, feel free to take a look at a product demo or check out our
                                         <a href="https://docs.kern.ai/" target="_blank"><span
                                                 class="underline cursor-pointer">documentation</span></a>. If you have
                                         any
                                         questions, you can reach out to us.
-                                    </ng-template>
-                                    <ng-template #premiumVersion>
+                                    </ng-template> -->
+                                    <!-- <ng-template #premiumVersion>
                                         If you are interested in working with multiple users take a look at our <a
                                             href="./users"><span class="underline cursor-pointer">options</span></a>.
-                                    </ng-template>
+                                    </ng-template> -->
 
-                                </div>
+                                <!-- </div> -->
                             </div>
-                            <div style="width:560px;height:315px" class="overflow-hidden relative">
+                            <!-- <div style="width:560px;height:315px" class="overflow-hidden relative">
                                 <ng-template [ngIf]="saveUrl" [ngIfElse]="showPicture">
                                     <iframe width="560" height="315" [src]="saveUrl" title="YouTube video player"
                                         frameborder="0" autoplay="1"
@@ -279,7 +279,7 @@
                                         </span>
                                     </div>
                                 </ng-template>
-                            </div>
+                            </div> -->
                         </div>
                     </main>
                 </div>

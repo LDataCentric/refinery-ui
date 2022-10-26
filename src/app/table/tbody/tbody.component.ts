@@ -84,7 +84,7 @@ export class TbodyComponent implements OnInit {
     initialTasks$.push(this.prepareSortOrder(projectId));
     initialTasks$.push(this.getLabelingTasks(projectId));
     forkJoin(initialTasks$).pipe(first()).subscribe(_ => {
-      this.requestSessionData(projectId, TbodyComponent.DUMMY_SESSION_ID).then(() => {
+      this.requestRecordIds(projectId, TbodyComponent.DUMMY_SESSION_ID).then(() => {
       this.concatData();
       });
       this.columns = this.generateColumns();
@@ -336,6 +336,15 @@ export class TbodyComponent implements OnInit {
         window.alert("too many labels in one task, please, select less than four labels per task");
         throw Error("too many labels per task");
       }
+      if (labelingTask.labels){
+        labelingTask.labels.forEach(element => {
+          if (element.name.length >= 7)
+          {
+            window.alert("label name is too long for display, please use a shorter name");
+            throw Error("label name is too long");
+          }
+        });
+      }
       columns.push({
         columnDef: labelingTask.name as string,
         header: labelingTask.name as string,
@@ -368,7 +377,7 @@ export class TbodyComponent implements OnInit {
 
   }
 
-  async requestSessionData(projectId: string, sessionId: string): Promise<void> {
+  async requestRecordIds(projectId: string, sessionId: string): Promise<void> {
     const requestedPos = 0;
     const result = await this.recordApolloService.getSessionBySessionId(projectId, sessionId)
       .pipe(first()).toPromise();

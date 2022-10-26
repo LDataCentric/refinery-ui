@@ -26,14 +26,20 @@
                             your projects at <span class="font-bold text-gray-900">{{organizationName}}</span>.
                         </div>
                     </span>
+                    <span *ngIf="organizationInactive">
+                      <div class="ml-6 text-gray-500 text-sm font-normal">
+                          Welcome, <span class="font-bold text-gray-900">{{user?.firstName}}</span>! Preparing
+                          your account, please refresh the page <span class="font-bold text-gray-900">{{organizationName}}</span>.
+                      </div>
+                  </span>
 
-                    <div *ngIf="organizationInactive">
+                    <!-- <div *ngIf="organizationInactive">
                         <div class="ml-6 text-gray-500 text-sm font-normal">
                             Welcome, <span class="font-bold text-gray-900">{{user?.firstName}}</span>!
                             {{showConfigSettings ?'Switch to your main account to continue labeling...':
-                            'You are currently on the waitlist.'}}
-                        </div>
-                    </div>
+                            'You are currently on the waitlist.'}} -->
+                        <!-- </div> -->
+                    <!-- </div> -->
                 </ng-template>
                 <ng-template [ngSwitchCase]="'project'">
                     <div class="ml-6 text-gray-700 text-sm font-bold">
@@ -53,13 +59,13 @@
                             your activities at <span class="font-bold text-gray-900">{{organizationName}}</span>.
                         </div>
                     </div>
-                    <div *ngIf="organizationInactive">
+                    <!-- <div *ngIf="organizationInactive">
                         <div class="ml-6 text-gray-500 text-sm font-normal">
                             Welcome, <span class="font-bold text-gray-900">{{user?.firstName}}</span>!
                             {{showConfigSettings ?'Switch to your main account to continue labeling...':
                             'You are currently on the waitlist.'}}
                         </div>
-                    </div>
+                    </div> -->
                 </ng-template>
                 <ng-template [ngSwitchCase]="'config'">
                     <div *ngIf="!organizationInactive && user" class="flex items-center">
@@ -69,13 +75,13 @@
                         </div>
                     </div>
                     <!--Currently, managed version users don't have a config page - but once we have one, they also need to be told that they're on the waitlist-->
-                    <div *ngIf="organizationInactive">
+                    <!-- <div *ngIf="organizationInactive">
                         <div class="ml-6 text-gray-500 text-sm font-normal">
                             Welcome, <span class="font-bold text-gray-900">{{user?.firstName}}</span>!
                             {{showConfigSettings ?'Switch to your main account to continue labeling...':
                             'You are currently on the waitlist.'}}
                         </div>
-                    </div>
+                    </div> -->
                 </ng-template>
             </ng-container>
 

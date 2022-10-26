@@ -10,6 +10,7 @@ export interface Column{
   parent?: any;
   labels?: any;
   id: number;
+  houver?:string;
 }
 
 export enum ColumnType{
