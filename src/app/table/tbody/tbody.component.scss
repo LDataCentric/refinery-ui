@@ -13,7 +13,7 @@ mat-cell{
   overflow:visible;
 }
 
-.tooltip:before{
+.tooltip:before, .tooltip:after{
   z-index:150
 }
 
