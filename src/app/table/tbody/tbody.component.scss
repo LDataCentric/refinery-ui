@@ -8,7 +8,13 @@ mat-table{
 }
 mat-header-row{
   background-color: white;
+}
+mat-cell{
+  overflow:visible;
+}
 
+.tooltip:before{
+  z-index:150
 }
 
 mat-table::-webkit-scrollbar{
