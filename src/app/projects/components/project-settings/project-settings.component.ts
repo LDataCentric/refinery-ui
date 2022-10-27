@@ -125,6 +125,7 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
   downloadedModelsQuery$: any;
   downloadedModels: any[];
   isManaged: boolean = true;
+  productForm: FormGroup;
 
   constructor(
     private routeService: RouteService,
@@ -134,8 +135,9 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private s3Service: S3Service,
-    private informationSourceApolloService: WeakSourceApolloService
-  ) { }
+    private informationSourceApolloService: WeakSourceApolloService,
+    private fb:FormBuilder
+   ) { }
 
   ngAfterViewInit() {
     this.inputTaskName.changes.subscribe(() => {
@@ -189,6 +191,10 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
       })
     }
     this.checkIfManagedVersion();
+    this.productForm = this.fb.group({
+      name: '',
+      quantities: this.fb.array([]) ,
+    });
   }
   private setUpCommentRequests(projectId: string) {
     const requests = [];
@@ -197,6 +203,28 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     requests.push({ commentType: CommentType.EMBEDDING, projectId: projectId });
     requests.push({ commentType: CommentType.LABEL, projectId: projectId });
     CommentDataManager.registerCommentRequests(this, requests);
+  }
+
+  quantities() : FormArray {
+    return this.productForm.get("quantities") as FormArray
+  }
+
+  newQuantity(): FormGroup {
+    return this.fb.group({
+      label: '',
+    })
+  }
+
+  addQuantity() {
+    this.quantities().push(this.newQuantity());
+  }
+
+  removeQuantity(i:number) {
+    this.quantities().removeAt(i);
+  }
+
+  onSubmit() {
+    console.log(this.productForm.value);
   }
 
   checkIfManagedVersion() {
