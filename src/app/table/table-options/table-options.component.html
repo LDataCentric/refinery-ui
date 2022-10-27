@@ -32,6 +32,9 @@
           <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
       </svg>
       </button>
+      <mat-form-field appearance="fill">
+        <input matInput (keyup)="filterEvent.emit($event)" placeholder="Search columns" #input>
+      </mat-form-field>
   </div>
   <!-- <div class="w-full lg:w-2/3 flex flex-col lg:flex-row items-start lg:items-center justify-end">
       <div class="flex items-center dark:border-gray-200 pb-3 lg:pb-0">

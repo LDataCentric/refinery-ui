@@ -26,4 +26,8 @@ export class TableComponent implements OnInit {
     this.TbodyComponent.duplicate();
   }
 
+  filterRows($event): void{
+    this.TbodyComponent.applyFilter($event);
+  }
+
 }

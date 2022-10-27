@@ -9,6 +9,7 @@ import { GlobalErrorHandler } from './base/interceptors/global-exception.interce
 import { NotificationService } from './base/services/notification.service';
 import { DataModule } from './data/data.module';
 import { ProjectsModule } from './projects/projects.module';
+import { FormsModule } from '@angular/forms';
 import { ImportModule } from './import/import.module';
 import { MonitorModule } from './monitor/monitor.module';
 import { GraphQLModule } from './graphql.module';
@@ -28,6 +29,8 @@ import { TableOptionsComponent } from './table/table-options/table-options.compo
 import { TbodyComponent } from './table/tbody/tbody.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -38,11 +41,14 @@ import { UsersModule } from './users/users.module';
 
 @NgModule({
   declarations: [AppComponent, TableComponent, TableOptionsComponent, TbodyComponent],
-  exports: [MatSortModule, MatCheckboxModule, MatTableModule, DragDropModule],
+  exports: [MatSortModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatTableModule, DragDropModule],
   imports: [
     MatSortModule,
     MatCheckboxModule,
     MatTableModule,
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule,
     DragDropModule,
     BrowserModule,
     AppRoutingModule,

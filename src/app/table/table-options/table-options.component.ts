@@ -8,6 +8,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class TableOptionsComponent implements OnInit {
   @Output() deleteEvent = new EventEmitter();
   @Output() duplicateEvent = new EventEmitter();
+  @Output() filterEvent = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
