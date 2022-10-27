@@ -16,7 +16,7 @@ export class InformationSourceCodeLookup {
             case InformationSourceExamples.LF_EMPTY_EXTRACTION:
                 return {
                     name: "my_labeling_function", code: `def lf(record):
-    # token start is included, end is excluded so e.g. 
+    # token start is included, end is excluded so e.g.
     # for token in record["str_attribute"]:
     #    if token.is_digit:
     #        yield "your_label", token.i, token.i + 1
@@ -47,7 +47,7 @@ class ATLClassifier(LearningClassifier):
         self.model.fit(embeddings, labels)
 
     @params_inference(
-        min_confidence = 0.9,
+        min_confidence = 0.0,
         label_names = None # you can specify a list to filter the predictions (e.g. ["label-a", "label-b"])
     )
     def predict_proba(self, embeddings):
