@@ -14,6 +14,7 @@ import { WeakSourceApolloService } from 'src/app/base/services/weak-source/weak-
 import { ConfigManager } from 'src/app/base/services/config-service';
 import { UserManager } from 'src/app/util/user-manager';
 import { CommentDataManager, CommentType } from 'src/app/base/components/comment/comment-helper';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'kern-project-settings',
@@ -125,7 +126,7 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
   downloadedModelsQuery$: any;
   downloadedModels: any[];
   isManaged: boolean = true;
-  productForm: FormGroup;
+  newLTLabels: Array<string> = [];
 
   constructor(
     private routeService: RouteService,
@@ -191,10 +192,6 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
       })
     }
     this.checkIfManagedVersion();
-    this.productForm = this.fb.group({
-      name: '',
-      quantities: this.fb.array([]) ,
-    });
   }
   private setUpCommentRequests(projectId: string) {
     const requests = [];
@@ -205,26 +202,20 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     CommentDataManager.registerCommentRequests(this, requests);
   }
 
-  quantities() : FormArray {
-    return this.productForm.get("quantities") as FormArray
-  }
-
-  newQuantity(): FormGroup {
-    return this.fb.group({
-      label: '',
-    })
-  }
-
   addQuantity() {
-    this.quantities().push(this.newQuantity());
+    this.newLTLabels.push("");
   }
 
   removeQuantity(i:number) {
-    this.quantities().removeAt(i);
+    this.newLTLabels.splice(i, 1);
+  }
+
+  updateLabel(i:number, event : Event){
+    this.newLTLabels[i] = (event.target as HTMLInputElement).value;
   }
 
   onSubmit() {
-    console.log(this.productForm.value);
+    console.log(this.newLTLabels);
   }
 
   checkIfManagedVersion() {
@@ -502,7 +493,6 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
 
     this.requestTimeOut = true;
     timer(100).subscribe(() => this.requestTimeOut = false);
-
 
     modalInputToClose.checked = false;
   }
