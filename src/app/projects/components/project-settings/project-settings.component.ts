@@ -14,7 +14,6 @@ import { WeakSourceApolloService } from 'src/app/base/services/weak-source/weak-
 import { ConfigManager } from 'src/app/base/services/config-service';
 import { UserManager } from 'src/app/util/user-manager';
 import { CommentDataManager, CommentType } from 'src/app/base/components/comment/comment-helper';
-import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'kern-project-settings',
@@ -126,7 +125,6 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
   downloadedModelsQuery$: any;
   downloadedModels: any[];
   isManaged: boolean = true;
-  newLTLabels: Array<string> = [];
 
   constructor(
     private routeService: RouteService,
@@ -136,9 +134,8 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private s3Service: S3Service,
-    private informationSourceApolloService: WeakSourceApolloService,
-    private fb:FormBuilder
-   ) { }
+    private informationSourceApolloService: WeakSourceApolloService
+  ) { }
 
   ngAfterViewInit() {
     this.inputTaskName.changes.subscribe(() => {
@@ -200,22 +197,6 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     requests.push({ commentType: CommentType.EMBEDDING, projectId: projectId });
     requests.push({ commentType: CommentType.LABEL, projectId: projectId });
     CommentDataManager.registerCommentRequests(this, requests);
-  }
-
-  addQuantity() {
-    this.newLTLabels.push("");
-  }
-
-  removeQuantity(i:number) {
-    this.newLTLabels.splice(i, 1);
-  }
-
-  updateLabel(i:number, event : Event){
-    this.newLTLabels[i] = (event.target as HTMLInputElement).value;
-  }
-
-  onSubmit() {
-    console.log(this.newLTLabels);
   }
 
   checkIfManagedVersion() {
@@ -493,6 +474,7 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
 
     this.requestTimeOut = true;
     timer(100).subscribe(() => this.requestTimeOut = false);
+
 
     modalInputToClose.checked = false;
   }
