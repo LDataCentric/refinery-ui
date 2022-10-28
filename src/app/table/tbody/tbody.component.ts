@@ -340,15 +340,16 @@ export class TbodyComponent implements OnInit {
         window.alert("too many labels in one task, please, select less than four labels per task");
         throw Error("too many labels per task");
       }
-      if (labelingTask.labels){
+      /*if (labelingTask.labels){
         labelingTask.labels.forEach(element => {
+
           if (element.name.length >= 7)
           {
             window.alert("label name is too long for display, please use a shorter name");
             throw Error("label name is too long");
           }
         });
-      }
+      }*/
       columns.push({
         columnDef: labelingTask.name as string,
         header: labelingTask.name as string,
