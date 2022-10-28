@@ -1,4 +1,5 @@
-<mat-table #table cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="columnDropped($event)" [dataSource]="dataSource" (scroll)="onTableScroll($event)" matSort>
+<mat-table #table cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="columnDropped($event)" [dataSource]="dataSource" (scroll)="onTableScroll($event)"
+ matSort (matSortChange)="sortEvent($event)">
 
   <ng-container matColumnDef="checkbox">
     <mat-header-cell *matHeaderCellDef>

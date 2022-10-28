@@ -443,6 +443,12 @@ export class TbodyComponent implements OnInit {
   }
 
 
+  sortEvent($event:Event){
+    // $event = {active:'ColumnDef, direction:'asc' or 'desc' or ''}
+
+  }
+
+
   // styling functions for buttons
   getBackground(color: any): string {
     return `bg-${color}-100 `;
