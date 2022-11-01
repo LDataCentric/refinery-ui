@@ -82,6 +82,7 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
   labelingTaskColors: Map<string, string[]> = new Map<string, string[]>();
   currentLabel: any = null;
   currentColorLabelingTaskId: any = null;
+  productForm: FormGroup;
 
   downloadMessage: DownloadState = DownloadState.NONE;
   downloadPrepareMessage: DownloadState = DownloadState.NONE;
@@ -126,7 +127,6 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
   downloadedModelsQuery$: any;
   downloadedModels: any[];
   isManaged: boolean = true;
-  newLTLabels: Array<string> = [];
 
   constructor(
     private routeService: RouteService,
@@ -192,6 +192,9 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
       })
     }
     this.checkIfManagedVersion();
+    this.productForm = this.fb.group({
+      quantities: this.fb.array([]) ,
+    });
   }
   private setUpCommentRequests(projectId: string) {
     const requests = [];
@@ -202,21 +205,24 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     CommentDataManager.registerCommentRequests(this, requests);
   }
 
+  quantities() : FormArray {
+    return this.productForm.get("quantities") as FormArray
+  }
+
+  newQuantity(): FormGroup {
+    return this.fb.group({
+      label: '',
+    })
+  }
+
   addQuantity() {
-    this.newLTLabels.push("");
+    this.quantities().push(this.newQuantity());
   }
 
   removeQuantity(i:number) {
-    this.newLTLabels.splice(i, 1);
+    this.quantities().removeAt(i);
   }
 
-  updateLabel(i:number, event : Event){
-    this.newLTLabels[i] = (event.target as HTMLInputElement).value;
-  }
-
-  onSubmit() {
-    console.log(this.newLTLabels);
-  }
 
   checkIfManagedVersion() {
     if (!ConfigManager.isInit()) {
@@ -495,6 +501,8 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     timer(100).subscribe(() => this.requestTimeOut = false);
 
     modalInputToClose.checked = false;
+
+    console.log(this.productForm.value); // Add Labels on the Labeling Task
   }
 
   getAttributeArrayAttribute(attributeId: string, valueID: string) {
