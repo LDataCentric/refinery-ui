@@ -223,6 +223,10 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     this.quantities().removeAt(i);
   }
 
+  resetQuantity(){
+    this.quantities().clear();
+  }
+
 
   checkIfManagedVersion() {
     if (!ConfigManager.isInit()) {
