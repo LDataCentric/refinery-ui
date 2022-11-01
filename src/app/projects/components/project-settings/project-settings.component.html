@@ -52,7 +52,7 @@
                                                     </ng-template>
                                                 </div>
                                             </div>
-                                        </th>-->
+                                        </th>
                                         <th scope="col"
                                             class="px-3 py-2 text-center text-xs font-medium uppercase tracking-wide text-gray-500">
                                             State
@@ -60,7 +60,7 @@
                                         <th scope="col"
                                             class="px-3 py-2 text-center text-xs font-medium uppercase tracking-wide text-gray-500">
                                             Modify
-                                        </th>
+                                        </th>-->
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200">
@@ -82,7 +82,7 @@
                                             <label class="cursor-pointer">
                                                 <input formControlName="isPrimaryKey" type="checkbox">
                                             </label>
-                                        </td>-->
+                                        </td>
                                         <td class="whitespace-nowrap text-center px-3 py-2 text-sm text-gray-500">
                                             <kern-heuristic-statuses [status]="attributeContainer.get('state').value"
                                                 page="attributes" initialCaption="Needs execution">
@@ -101,7 +101,7 @@
                                                         d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                                 </svg>
                                             </button>
-                                        </td>
+                                        </td>-->
                                     </tr>
                                 </tbody>
                             </table>
@@ -112,7 +112,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-1 align-top">
                 <div class="items-center flex flex-row">
-                    <div class="tooltip tooltip-bottom" data-tip="Add new attribute">
+                    <!--<div class="tooltip tooltip-bottom" data-tip="Add new attribute">
                         <button (click)="createUserAttribute()"
                             class="mr-1 inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-semibold rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-5 w-5 inline-block stroke-current"
@@ -122,7 +122,7 @@
                             </svg>
                             Add new attibute
                         </button>
-                    </div>
+                    </div>-->
                     <div class="tooltip tooltip-bottom" data-tip="Upload more records to the project">
                         <button [routerLink]="['../add']"
                             class="mr-1 inline-flex items-center px-2.5 py-2 border border-gray-300 shadow-sm text-xs font-semibold rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none cursor-pointer">
@@ -279,7 +279,7 @@
                     </div>
                 </div>
 
-                <div class="text-left lg:text-right">
+                <!--<div class="text-left lg:text-right">
                     <div [attr.data-tip]="project.tokenizer"
                         class="z-10 tooltip tooltip-right font-medium inline-block">
                         <span class="cursor-help underline"
@@ -306,7 +306,7 @@
                             </progress>
                         </ng-template>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
 
