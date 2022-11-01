@@ -14,7 +14,6 @@ import { WeakSourceApolloService } from 'src/app/base/services/weak-source/weak-
 import { ConfigManager } from 'src/app/base/services/config-service';
 import { UserManager } from 'src/app/util/user-manager';
 import { CommentDataManager, CommentType } from 'src/app/base/components/comment/comment-helper';
-import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'kern-project-settings',
@@ -136,9 +135,8 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private s3Service: S3Service,
-    private informationSourceApolloService: WeakSourceApolloService,
-    private fb:FormBuilder
-   ) { }
+    private informationSourceApolloService: WeakSourceApolloService
+  ) { }
 
   ngAfterViewInit() {
     this.inputTaskName.changes.subscribe(() => {

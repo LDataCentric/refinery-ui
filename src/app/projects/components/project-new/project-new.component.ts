@@ -145,10 +145,10 @@ export class ProjectNewComponent implements OnInit {
           this.uploadRecordsComponent.projectId = p.id;
           this.uploadRecordsComponent.selectedTokenizer = this.createNewProject.get('tokenizerForm').value;
           this.uploadRecordsComponent.submitUploadRecords();
-          this.router.navigate(['projects', p.id, 'settings']);
-          this.notificationApolloService.createNotification(p.id, "Project added successfully!")
-        .pipe(first())
-        .subscribe();
+        //   this.router.navigate(['projects', p.id, 'settings']);
+        //   this.notificationApolloService.createNotification(p.id, "Project added successfully!")
+        // .pipe(first())
+        // .subscribe();
         });
     }
   }
