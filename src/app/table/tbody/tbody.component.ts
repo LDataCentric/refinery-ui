@@ -179,15 +179,15 @@ export class TbodyComponent implements OnInit {
         deletedIds.push(this.dataSource.data[index]._id);
         this.dataSource.data.splice(index, 1);
       });
-      // let response =  await this.recordApolloService.deleteByRecordIds(this.project.id, deletedIds).toPromise();
-      // console.log(response);
-      // if(!(response.data as any).deleteRecords.ok){
-      //   throw Error("server side error");
-      // }
-      // this.selection.clear();
-      // this.concatData();
-      // this.dataSource._updateChangeSubscription();
-      // this.dataSource.sort = this.sort;
+      let response =  await this.recordApolloService.deleteByRecordIds(this.project.id, deletedIds).toPromise();
+      console.log(response);
+      if(!(response.data as any).deleteRecords.ok){
+        throw Error("server side error");
+      }
+      this.selection.clear();
+      this.concatData();
+      this.dataSource._updateChangeSubscription();
+      this.dataSource.sort = this.sort;
 
     }
     catch (error) {
@@ -340,15 +340,16 @@ export class TbodyComponent implements OnInit {
         window.alert("too many labels in one task, please, select less than four labels per task");
         throw Error("too many labels per task");
       }
-      if (labelingTask.labels){
+      /*if (labelingTask.labels){
         labelingTask.labels.forEach(element => {
+
           if (element.name.length >= 7)
           {
             window.alert("label name is too long for display, please use a shorter name");
             throw Error("label name is too long");
           }
         });
-      }
+      }*/
       columns.push({
         columnDef: labelingTask.name as string,
         header: labelingTask.name as string,

@@ -14,6 +14,7 @@ import { WeakSourceApolloService } from 'src/app/base/services/weak-source/weak-
 import { ConfigManager } from 'src/app/base/services/config-service';
 import { UserManager } from 'src/app/util/user-manager';
 import { CommentDataManager, CommentType } from 'src/app/base/components/comment/comment-helper';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'kern-project-settings',
@@ -81,6 +82,7 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
   labelingTaskColors: Map<string, string[]> = new Map<string, string[]>();
   currentLabel: any = null;
   currentColorLabelingTaskId: any = null;
+  productForm: FormGroup;
 
   downloadMessage: DownloadState = DownloadState.NONE;
   downloadPrepareMessage: DownloadState = DownloadState.NONE;
@@ -134,8 +136,9 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private s3Service: S3Service,
-    private informationSourceApolloService: WeakSourceApolloService
-  ) { }
+    private informationSourceApolloService: WeakSourceApolloService,
+    private fb:FormBuilder
+   ) { }
 
   ngAfterViewInit() {
     this.inputTaskName.changes.subscribe(() => {
@@ -189,6 +192,9 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
       })
     }
     this.checkIfManagedVersion();
+    this.productForm = this.fb.group({
+      quantities: this.fb.array([]) ,
+    });
   }
   private setUpCommentRequests(projectId: string) {
     const requests = [];
@@ -198,6 +204,29 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     requests.push({ commentType: CommentType.LABEL, projectId: projectId });
     CommentDataManager.registerCommentRequests(this, requests);
   }
+
+  quantities() : FormArray {
+    return this.productForm.get("quantities") as FormArray
+  }
+
+  newQuantity(): FormGroup {
+    return this.fb.group({
+      label: '',
+    })
+  }
+
+  addQuantity() {
+    this.quantities().push(this.newQuantity());
+  }
+
+  removeQuantity(i:number) {
+    this.quantities().removeAt(i);
+  }
+
+  resetQuantity(){
+    this.quantities().clear();
+  }
+
 
   checkIfManagedVersion() {
     if (!ConfigManager.isInit()) {
@@ -458,6 +487,7 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     taskName: string,
     taskTargetId: string = null
   ) {
+    let taskId;
     if (this.requestTimeOut) return;
     if (taskName.trim().length == 0) return;
     if (!this.isTaskNameUniqueCheck(taskName)) return;
@@ -470,11 +500,20 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
       labelingTaskType = LabelingTask.NOT_SET;*/ // Set Multiclass Classification as default
 
     this.projectApolloService.addLabelingTask(projectId, taskName.trim(), labelingTaskType, taskTargetId)
-      .pipe(first()).subscribe();
+      .pipe(first()).subscribe(); // TODO: return taskId so that we don't have to search for it.
 
     this.requestTimeOut = true;
-    timer(100).subscribe(() => this.requestTimeOut = false);
-
+    timer(100).subscribe(() => {
+      this.requestTimeOut = false;
+      this.labelingTasksArray.controls.forEach(labelingTaskInstance=>{
+        if(labelingTaskInstance.value.name === taskName.trim()){
+          taskId = labelingTaskInstance.value.id;
+        }
+      })
+      this.quantities().controls.forEach(formGroupElement=>{
+        this.addLabelOnTask(projectId, taskId, formGroupElement.value.label);
+      });
+    });
 
     modalInputToClose.checked = false;
   }
@@ -504,6 +543,31 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
 
     this.projectApolloService
       .deleteLabel(projectId, labelId).pipe(first())
+      .subscribe();
+  }
+
+  addLabelOnTask(
+    projectId: string,
+    taskId: string,
+    labelInput: string
+  ): void {
+    if (this.requestTimeOut) return;
+    if (!labelInput) return;
+    if (!this.isLabelNameUnique(taskId, labelInput)) return;
+    let labelColor = "yellow"
+    let colorsInTask = this.labelingTaskColors.get(taskId);
+    if (colorsInTask.length > 0) {
+      const availableColors = this.colorOptions.filter(x => !colorsInTask.includes(x));
+      if (availableColors.length > 0) {
+        labelColor = availableColors[0]
+        colorsInTask.push(labelColor);
+        this.labelingTaskColors.set(taskId, colorsInTask);
+      }
+    } else {
+      this.labelingTaskColors.set(taskId, [labelColor])
+    }
+    this.projectApolloService
+      .createLabel(projectId, taskId, labelInput, labelColor).pipe(first())
       .subscribe();
   }
 
