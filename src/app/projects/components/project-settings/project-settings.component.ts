@@ -487,6 +487,7 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     taskName: string,
     taskTargetId: string = null
   ) {
+    let taskId;
     if (this.requestTimeOut) return;
     if (taskName.trim().length == 0) return;
     if (!this.isTaskNameUniqueCheck(taskName)) return;
@@ -499,14 +500,22 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
       labelingTaskType = LabelingTask.NOT_SET;*/ // Set Multiclass Classification as default
 
     this.projectApolloService.addLabelingTask(projectId, taskName.trim(), labelingTaskType, taskTargetId)
-      .pipe(first()).subscribe();
+      .pipe(first()).subscribe(); // TODO: return taskId so that we don't have to search for it.
 
     this.requestTimeOut = true;
-    timer(100).subscribe(() => this.requestTimeOut = false);
+    timer(100).subscribe(() => {
+      this.requestTimeOut = false;
+      this.labelingTasksArray.controls.forEach(labelingTaskInstance=>{
+        if(labelingTaskInstance.value.name === taskName.trim()){
+          taskId = labelingTaskInstance.value.id;
+        }
+      })
+      this.quantities().controls.forEach(formGroupElement=>{
+        this.addLabelOnTask(projectId, taskId, formGroupElement.value.label);
+      });
+    });
 
     modalInputToClose.checked = false;
-
-    console.log(this.productForm.value); // Add Labels on the Labeling Task
   }
 
   getAttributeArrayAttribute(attributeId: string, valueID: string) {
@@ -534,6 +543,31 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
 
     this.projectApolloService
       .deleteLabel(projectId, labelId).pipe(first())
+      .subscribe();
+  }
+
+  addLabelOnTask(
+    projectId: string,
+    taskId: string,
+    labelInput: string
+  ): void {
+    if (this.requestTimeOut) return;
+    if (!labelInput) return;
+    if (!this.isLabelNameUnique(taskId, labelInput)) return;
+    let labelColor = "yellow"
+    let colorsInTask = this.labelingTaskColors.get(taskId);
+    if (colorsInTask.length > 0) {
+      const availableColors = this.colorOptions.filter(x => !colorsInTask.includes(x));
+      if (availableColors.length > 0) {
+        labelColor = availableColors[0]
+        colorsInTask.push(labelColor);
+        this.labelingTaskColors.set(taskId, colorsInTask);
+      }
+    } else {
+      this.labelingTaskColors.set(taskId, [labelColor])
+    }
+    this.projectApolloService
+      .createLabel(projectId, taskId, labelInput, labelColor).pipe(first())
       .subscribe();
   }
 
