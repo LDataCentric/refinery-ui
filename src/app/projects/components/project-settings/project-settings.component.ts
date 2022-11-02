@@ -481,12 +481,12 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
   }
 
 
-  addLabelingTask(
+  async addLabelingTask(
     projectId: string,
     modalInputToClose: HTMLInputElement,
     taskName: string,
     taskTargetId: string = null
-  ) {
+  )  {
     let taskId;
     if (this.requestTimeOut) return;
     if (taskName.trim().length == 0) return;
@@ -499,8 +499,8 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     )
       labelingTaskType = LabelingTask.NOT_SET;*/ // Set Multiclass Classification as default
 
-    this.projectApolloService.addLabelingTask(projectId, taskName.trim(), labelingTaskType, taskTargetId)
-      .pipe(first()).subscribe(); // TODO: return taskId so that we don't have to search for it.
+    await this.projectApolloService.addLabelingTask(projectId, taskName.trim(), labelingTaskType, taskTargetId)
+      .pipe(first()).toPromise(); // TODO: return taskId so that we don't have to search for it.
 
     this.requestTimeOut = true;
     timer(100).subscribe(() => {
