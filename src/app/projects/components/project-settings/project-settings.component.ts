@@ -279,7 +279,7 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
   prepareEmbeddingHandles(projectId: string, attributes) {
     this.projectApolloService.getRecomendedEncodersForEmbeddings(projectId).pipe(first()).subscribe((encoderSuggestions) => {
       if (!this.project) {
-        let timer = interval(250).subscribe(() => {
+        let timer = interval(500).subscribe(() => {
           if (this.project) {
             this.parseEncoderToSuggestions(encoderSuggestions, attributes);
             timer.unsubscribe();
@@ -294,13 +294,18 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
   private parseEncoderToSuggestions(encoderSuggestions, attributes) {
     encoderSuggestions = encoderSuggestions.filter(e => e.tokenizers.includes("all") || e.tokenizers.includes(this.project.tokenizer))
     if (!encoderSuggestions.length) return;
-    if (encoderSuggestions) encoderSuggestions.forEach(element => {
-      element.hidden = false;
-      element.forceHidden = false;
-      if (typeof element.applicability === 'string' || element.applicability instanceof String) {
-        element.applicability = JSON.parse(element.applicability);
-      }
-    });
+    console.log(encoderSuggestions)
+    if (encoderSuggestions){
+      encoderSuggestions.forEach(element => {
+        let x = {...element}
+        x.hidden = false;
+        x.forceHidden = false;
+        if (typeof x.applicability === 'string' || x.applicability instanceof String) {
+          x.applicability = JSON.parse(x.applicability);
+        }
+        element= x;
+      });
+    }
     attributes.forEach(att => {
       this.embeddingHandlesMap.set(att.id, encoderSuggestions);
     })
