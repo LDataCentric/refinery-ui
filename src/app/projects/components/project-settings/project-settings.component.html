@@ -123,7 +123,7 @@
                             Add new attibute
                         </button>
                     </div>-->
-                    <div class="tooltip tooltip-bottom" data-tip="Upload more records to the project">
+                    <!-- <div class="tooltip tooltip-bottom" data-tip="Upload more records to the project">
                         <button [routerLink]="['../add']"
                             class="mr-1 inline-flex items-center px-2.5 py-2 border border-gray-300 shadow-sm text-xs font-semibold rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4" fill="none" viewBox="0 0 24 24"
@@ -133,7 +133,7 @@
                             </svg>
                             Upload records
                         </button>
-                    </div>
+                    </div> -->
                     <div class="tooltip tooltip-bottom" data-tip="Download your labeled records">
                         <button (click)="requestFileExport(project.id)"
                             class="mr-1 inline-flex items-center px-2.5 border border-gray-300 shadow-sm text-xs font-semibold rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none cursor-pointer"
@@ -151,7 +151,7 @@
                         </button>
                     </div>
 
-                    <label for="projectExportModal" class="modal-button cursor-pointer inline-block">
+                    <!-- <label for="projectExportModal" class="modal-button cursor-pointer inline-block">
                         <div class="tooltip tooltip-bottom"
                             data-tip="Creates a snapshot compressed file of your current project">
                             <div
@@ -162,10 +162,10 @@
                                 Export project
                             </div>
                         </div>
-                    </label>
-                    <input type="checkbox" id="projectExportModal" class="modal-toggle"
-                        (click)="requestProjectSize();requestProjectExportCredentials()">
-                    <div class="modal">
+                    </label> -->
+                    <!-- <input type="checkbox" id="projectExportModal" class="modal-toggle"
+                        (click)="requestProjectSize();requestProjectExportCredentials()"> -->
+                    <!-- <div class="modal">
                         <div class="modal-box text-black bg-white justify-center mb-4"
                             style="max-width: 80%; width:fit-content;">
                             <div class="text-lg leading-6 text-gray-900 font-medium text-center">
@@ -176,22 +176,22 @@
                                 <ng-template [ngIf]="projectSize" [ngIfElse]="sizeNotYetLoaded">
                                     <form [formGroup]="projectExportSchema">
                                         <div formArrayName="attributes" class="grid items-center p-2 gap-x-4"
-                                            style="grid-template-columns: auto 25px auto auto;">
+                                            style="grid-template-columns: auto 25px auto auto;"> -->
                                             <!--headline-->
-                                            <div class="flex">
+                                            <!-- <div class="flex">
                                                 <span class="card-title mb-0 label-text">Name</span>
                                             </div>
-                                            <div>
+                                            <div> -->
                                                 <!--info hover-->
-                                            </div>
+                                            <!-- </div>
                                             <div class="flex">
                                                 <span class="card-title mb-0 label-text">Size estimate</span>
                                             </div>
                                             <div class="flex flex-row justify-center items-center gap-2">
                                                 <span class="card-title mb-0 label-text">Export</span>
-                                            </div>
+                                            </div> -->
                                             <!--content-->
-                                            <ng-template ngFor let-attribute [ngForOf]="projectExportArray.controls"
+                                            <!-- <ng-template ngFor let-attribute [ngForOf]="projectExportArray.controls"
                                                 let-i="index">
                                                 <div [formGroupName]="i" class="contents">
                                                     <div class="flex">
@@ -237,9 +237,9 @@
                                 </ng-template>
                             </div>
                             <div *ngIf="projectSize" class="mt-4 flex flex-row justify-between "
-                                style="border-top: 1px solid #ddd;">
+                                style="border-top: 1px solid #ddd;"> -->
                                 <!-- Final size-->
-                                <div></div>
+                                <!-- <div></div>
                                 <div class="mt-4 mr-2 flex flex-row flex-nowrap">
                                     <div class="flex">
                                         <span class="card-title mb-0 label-text">Final size estimate:</span>
@@ -276,7 +276,7 @@
                                 </label>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!--<div class="text-left lg:text-right">
