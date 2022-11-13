@@ -41,6 +41,10 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     { name: 'Float', value: 'FLOAT' },
     { name: 'Boolean', value: 'BOOLEAN' },
     { name: 'Unknown', value: 'UNKNOWN' },
+    { name: 'Timeseries', value: 'TIMESERIES' },
+    { name: 'Image', value: 'IMAGE' },
+    { name: 'Video', value: 'VIDEO' },
+    { name: 'Audio', value: 'AUDIO' },
   ];
   granularityTypesArray = [
     { name: 'Attribute', value: 'ON_ATTRIBUTE' },
