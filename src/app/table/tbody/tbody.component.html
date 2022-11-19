@@ -38,7 +38,7 @@
           <!--first N options as buttons-->
           <div class="flex flex-row">
               <button [attr.data-tip]="label.name" (click)="labelClick(dataRow,label,column)"
-              [ngClass]="[label.name.length>9?'tooltip':'',getHover(label.color), dataRow[column.columnDef]?(dataRow[column.columnDef].labelId===label.id ?'shadow-lg '+getShadow(label.color)+getBackground(label.color)+getBorder(label.color)+getText(label.color):'bg-gray-300'):'bg-gray-300 border-gray-400 text-gray-700']"
+              [ngClass]="[label.name.length>9?'tooltip':'',getHover(label.color), dataRow[column.id]?(dataRow[column.id].labelId===label.id ?'shadow-lg '+getShadow(label.color)+getBackground(label.color)+getBorder(label.color)+getText(label.color):'bg-gray-300'):'bg-gray-300 border-gray-400 text-gray-700']"
                   class="texzt-sm font-medium mr-3 px-2 py-0.5 rounded-md border">
                   <label
                       class="leading-5 truncate max-w-xs cursor-pointer mx-1">{{ (label.name.length>9)? (label.name | slice:0:9)+'...':(label.name) }}

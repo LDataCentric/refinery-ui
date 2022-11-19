@@ -150,7 +150,7 @@ export class TbodyComponent implements OnInit {
         if ( element.sourceType === LabelSource.MANUAL){
           // console.log(element.labelingTaskLabel.labelingTask.name);
           // rlasId represents only manual record lable associations
-          record[element.labelingTaskLabel.labelingTask.name] = {labelId: element.labelingTaskLabelId, rlasId: element.id};
+          record[element.labelingTaskLabel.labelingTask.id] = {labelId: element.labelingTaskLabelId, rlasId: element.id};
           // console.log(record[element.labelingTaskLabel.labelingTask.name]);
         }
       });
@@ -322,7 +322,7 @@ export class TbodyComponent implements OnInit {
   generateColumns(): Array<any>{
     const columns: Column[] = [];
     this.sortOrder.forEach((attribute) => {
-      // console.log(attribute);
+      console.log(attribute);
       columns.push({
         columnDef: attribute.key as string,
         header: attribute.key as string,
@@ -362,6 +362,7 @@ export class TbodyComponent implements OnInit {
         id: labelingTask.id,
         labels: labelingTask.labels
       });
+      console.log(labelingTask.labels)
     });
     this.predictionsColumns.forEach((prediction => {
       // console.log(prediction);
@@ -400,11 +401,11 @@ export class TbodyComponent implements OnInit {
     // console.log(row);
     // console.log(labelingTask);
     // console.log(label);
-    if (row[labelingTask.columnDef]?.labelId === label.id){
+    if (row[labelingTask.id]?.labelId === label.id){
       console.log("entrou");
-      let response = await this.deleteRecordLabelAssociation(row._id, row[labelingTask.columnDef].rlasId);
+      let response = await this.deleteRecordLabelAssociation(row._id, row[labelingTask.id].rlasId);
       console.log(response);
-      row[labelingTask.columnDef] = undefined;
+      row[labelingTask.id] = undefined;
 
     }
     else{
@@ -415,7 +416,7 @@ export class TbodyComponent implements OnInit {
 
   async addLabelToTask(recordData: any, labelingTaskId: string, labelId: string) {
 
-    await this.recordApolloService
+    let response = await this.recordApolloService
       .addClassificationLabelsToRecord(
         this.project.id,
         recordData._id,
@@ -425,6 +426,7 @@ export class TbodyComponent implements OnInit {
         null
       )
       .pipe(first()).toPromise();
+      console.log(response)
   }
 
   async deleteRecordLabelAssociation(recordId: string , associationId: string) {
