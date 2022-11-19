@@ -335,7 +335,7 @@ export class TbodyComponent implements OnInit {
       });
     });
     this.labelingTaskColumns.forEach((labelingTask) => {
-      // console.log(labelingTask);
+      console.log(labelingTask);
       if (labelingTask.labels && labelingTask.labels.length > 3){
         window.alert("too many labels in one task, please, select less than four labels per task");
         throw Error("too many labels per task");
@@ -409,8 +409,13 @@ export class TbodyComponent implements OnInit {
 
     }
     else{
-      await this.addLabelToTask(row, labelingTask.id, label.id);
-      await this.colletRecordData(this.project.id, row);
+      let response = await this.addLabelToTask(row, labelingTask.id, label.id);
+      console.log(response)
+      let rlasList = response.data.addClassificationLabelsToRecord.record.recordLabelAssociations.edges as Array<any>
+      let newRlas = rlasList.filter(rlas=>rlas.node.sourceType==="MANUAL" && rlas.node.labelingTaskLabelId===label.id)[0]
+      row[labelingTask.id] = {labelId: label.id, rlasId: newRlas.id};
+
+      // await this.colletRecordData(this.project.id, row);
     }
   }
 
@@ -426,7 +431,7 @@ export class TbodyComponent implements OnInit {
         null
       )
       .pipe(first()).toPromise();
-      console.log(response)
+      return response
   }
 
   async deleteRecordLabelAssociation(recordId: string , associationId: string) {

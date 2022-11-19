@@ -2,11 +2,22 @@ import { gql } from 'apollo-angular';
 
 export const mutations = {
   ADD_CLASSIFICATION_LABELS_TO_RECORD: gql`
-  mutation ($projectId: ID!, $recordId: ID!, $labelingTaskId: ID, $labelId: ID, $asGoldStar:Boolean, $sourceId: ID) {
-    addClassificationLabelsToRecord(projectId: $projectId, recordId: $recordId, labelingTaskId: $labelingTaskId, labelId: $labelId,asGoldStar:$asGoldStar, sourceId: $sourceId) {
-      ok
+  mutation ($projectId: ID!, $recordId: ID!, $labelingTaskId: ID, $labelId: ID) {
+    addClassificationLabelsToRecord(projectId: $projectId, recordId: $recordId, labelingTaskId: $labelingTaskId, labelId: $labelId){
+    ok
+    record {
+      recordLabelAssociations {
+        edges {
+          node {
+            id,
+            sourceType,
+            labelingTaskLabelId
+          }
+        }
+      }
     }
   }
+}
   `,
 
   ADD_EXTRACTION_LABEL_TO_RECORD: gql`
