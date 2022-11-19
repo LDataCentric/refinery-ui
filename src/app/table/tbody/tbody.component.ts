@@ -402,7 +402,6 @@ export class TbodyComponent implements OnInit {
     // console.log(labelingTask);
     // console.log(label);
     if (row[labelingTask.id]?.labelId === label.id){
-      console.log("entrou");
       let response = await this.deleteRecordLabelAssociation(row._id, row[labelingTask.id].rlasId);
       console.log(response);
       row[labelingTask.id] = undefined;
@@ -412,9 +411,8 @@ export class TbodyComponent implements OnInit {
       let response = await this.addLabelToTask(row, labelingTask.id, label.id);
       console.log(response)
       let rlasList = response.data.addClassificationLabelsToRecord.record.recordLabelAssociations.edges as Array<any>
-      let newRlas = rlasList.filter(rlas=>rlas.node.sourceType==="MANUAL" && rlas.node.labelingTaskLabelId===label.id)[0]
+      let newRlas = rlasList.filter(rlas=>rlas.node.sourceType==="MANUAL" && rlas.node.labelingTaskLabelId===label.id)[0].node
       row[labelingTask.id] = {labelId: label.id, rlasId: newRlas.id};
-
       // await this.colletRecordData(this.project.id, row);
     }
   }
