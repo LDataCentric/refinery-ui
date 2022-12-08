@@ -41,7 +41,7 @@ const routes: Routes = [
     data: { name: 'ProjectComponent' },
     children: [
       { path: '', redirectTo: 'overview', pathMatch: 'full', data: { name: 'None' } },
-      { path: 'overview', component: ProjectOverviewComponent, data: { name: 'ProjectOverviewComponent' } },
+      { path: 'overview', component: ProjectSettingsComponent, data: { name: 'ProjectSettingsComponent' } },
       { path: 'add', component: ProjectAddComponent, data: { name: 'ProjectAddComponent' } },
       { path: 'heuristics', component: WeakSupervisionComponent, data: { name: 'WeakSupervisionComponent' } },
       {

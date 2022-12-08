@@ -171,14 +171,12 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     if (!this.isManaged && !ConfigManager.getIsDemo()) {
       this.subscriptions$.push(this.organizationApolloService.canCreateLocalOrg().pipe(first()).subscribe((canCreateOrg) => {
         this.canCreateOrg = canCreateOrg;
-        
         const localhostOrg = this.generateName();
-        
         // TODO retry if org already exists
         if (canCreateOrg) {
           this.organizationApolloService.createOrganization(localhostOrg).pipe(first()).subscribe(
             () => this.organizationApolloService.addUserToOrganization(user.mail, localhostOrg).pipe(first()).subscribe(
-              () => location.reload()
+              () => window.location.reload()
             )
           )
         }

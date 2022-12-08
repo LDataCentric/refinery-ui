@@ -77,7 +77,7 @@ class ATLExtractor(LearningExtractor):
         self.model.fit(embeddings, labels)
 
     @params_inference(
-        min_confidence = 0.9,
+        min_confidence = 0.0,
         label_names = None # you can specify a list to filter the predictions (e.g. ["label-a", "label-b"])
     )
     def predict_proba(self, embeddings):
