@@ -48,10 +48,10 @@ export const queries = {
       id
       data
       projectId
-      category      
+      category
     }
-  } 
-  
+  }
+
   `,
 
   GET_RECORD_LABEL_ASSOCIATIONS: gql`
@@ -169,7 +169,7 @@ export const queries = {
       }
     }
   }
-  
+
 `,
 
   SEARCH_SIMILAR_RECORDS: gql`
@@ -260,7 +260,7 @@ export const queries = {
         attribute {
           id
           name
-        }      
+        }
         tokens {
           value
           idx
@@ -280,13 +280,25 @@ export const queries = {
     }
   }
   `,
+  GET_ORDERED_IDS: gql`
+  query ($projectId: ID!, $sort_by: String){
+    allRecords (projectId: $projectId, sortBy: $sort_by) {
+      edges{
+        node{
+          id
+        }
+      }
+    }
+  }
+  `
+  ,
 
   RUN_RECORD_IDE: gql`
   query ($projectId: ID!, $recordId: ID!, $code: String!) {
     runRecordIde(projectId:$projectId, recordId:$recordId, code:$code)
   }
   `,
-  
+
   IS_ANY_RECORD_MANUALLY_LABELED: gql`
   query($projectId:ID!){
     isAnyRecordManuallyLabeled(projectId:$projectId)

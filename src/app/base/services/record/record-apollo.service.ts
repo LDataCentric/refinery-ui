@@ -449,6 +449,24 @@ export class RecordApolloService {
       );
   }
 
+  getOrderedIds(projectId: string, sort_by: string) {
+    return this.apollo
+      .query({
+        query: queries.GET_ORDERED_IDS,
+        variables: {
+          projectId: projectId,
+          sort_by: sort_by,
+        },
+        fetchPolicy: "network-only",
+      }).pipe(
+        map((result) => {
+          const data = result['data']['allRecords']['edges'];
+          let dataList = data.map(element=>element.node.id)
+          return dataList
+        })
+      );
+  }
+
   getRecordSearchAdvanced(
     variables: { projectId: string, filterData: string[], offset: number, limit: number }
   ) {

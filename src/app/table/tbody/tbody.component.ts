@@ -369,7 +369,7 @@ export class TbodyComponent implements OnInit {
       columns.push({
         columnDef: prediction.name as string,
         header: prediction.name as string,
-        isSort: false,
+        isSort: true,
         isPrimaryKey: false,
         classStyle: "prediction " + prediction.name,
         columnType: ColumnType.PREDICTION,
@@ -449,9 +449,27 @@ export class TbodyComponent implements OnInit {
   }
 
 
-  sortEvent($event:Event){
+  async sortEvent($event:Event) {
     // $event = {active:'ColumnDef, direction:'asc' or 'desc' or ''}
-
+    console.log($event)
+    let str=""
+    let selectedColumn = this.columns.filter(element=>element.columnDef===($event as any).active)
+    if(selectedColumn[0].columnType===ColumnType.DATA_POINT){
+      str="data:"+selectedColumn[0].columnDef
+    }
+    if(selectedColumn[0].columnType===ColumnType.PREDICTION)
+    {
+      str="model:"
+      str+=selectedColumn[0].id
+    }
+    str+=" " + ($event as any).direction
+    console.log(str)
+    console.log(selectedColumn)
+    let gqlResult = await this.recordApolloService.getOrderedIds(this.project.id,str).pipe(first()).toPromise()
+    this.sessionData.recordIds = gqlResult
+    this.dataSource.data=[]
+    this.sessionData.currentIndex = 0
+    await this.concatData()
   }
 
 
