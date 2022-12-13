@@ -683,13 +683,14 @@ export class ProjectApolloService {
       ],
     });
   }
-  exportRecords(projectId: string, sessionId: string = null) {
+  exportRecords(projectId: string, sessionId: string = null,isCsv:boolean) {
     return this.apollo
       .query({
         query: queries.EXPORT_RECORDS_BY_PROJECT_ID,
         variables: {
           projectId: projectId,
           sessionId: sessionId,
+          exportAsCsv: isCsv
         },
         fetchPolicy: 'no-cache'
       })

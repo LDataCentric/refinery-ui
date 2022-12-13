@@ -21,7 +21,7 @@ export const queries = {
             }
           }
         }
-      }      
+      }
   `,
   GET_PROJECT_NAMES: gql`
   query {
@@ -32,7 +32,7 @@ export const queries = {
           }
         }
       }
-    }      
+    }
 `,
   GET_PROJECT_UPLOADED_RECORDS: gql`
   query ($projectId: ID!) {
@@ -41,7 +41,7 @@ export const queries = {
       name
       numDataScaleUploaded
     }
-  }  
+  }
   `,
 
   GET_SCALE_PROJECT_STATISTICS: gql`
@@ -92,7 +92,7 @@ export const queries = {
         }
       }
     }
-  }  
+  }
   `,
 
   GET_PROJECT_BY_ID: gql`
@@ -122,7 +122,7 @@ export const queries = {
   GET_CONFIDENCE_DISTRIBUTION: gql`
   query ($projectId: ID!, $labelingTaskId: ID, $sliceId: ID) {
     confidenceDistribution(projectId: $projectId, labelingTaskId: $labelingTaskId, sliceId: $sliceId)
-  }  
+  }
   `,
 
   GET_ATTRIBUTES_BY_PROJECT_ID: gql`
@@ -132,13 +132,13 @@ export const queries = {
       name
       dataType
       isPrimaryKey
-      relativePosition    
+      relativePosition
       userCreated
       sourceCode
       state
       logs
     }
-  }  
+  }
   `,
   GET_LABELING_TASKS_BY_PROJECT_ID: gql`
   query ($projectId: ID!) {
@@ -182,15 +182,15 @@ export const queries = {
         }
       }
     }
-  }  
- 
+  }
+
   `,
 
   GET_CONFUSION_MATRIX: gql`
   query($projectId:ID!,$labelingTaskId:ID!,$sliceId:ID){
     confusionMatrix(projectId:$projectId,labelingTaskId:$labelingTaskId,sliceId:$sliceId)
   }
-  
+
   `,
   GET_INTER_ANNOTATOR_BY_PROJECT_ID: gql`
   query ($projectId: ID!, $labelingTaskId: ID!, $includeGoldStar: Boolean, $includeAllOrgUser: Boolean, $onlyOnStaticSlice: ID) {
@@ -211,8 +211,8 @@ export const queries = {
         percent
       }
     }
-  }  
-  
+  }
+
   `,
 
 
@@ -251,19 +251,19 @@ export const queries = {
       tokenizers
       applicability
     }
-  } 
+  }
   `,
 
   EXPORT_RECORDS_BY_PROJECT_ID: gql`
-    query ($projectId: ID!, $sessionId: ID) {
-      export(projectId: $projectId, sessionId: $sessionId)
+    query ($projectId: ID!, $sessionId: ID,$exportAsCsv: Boolean) {
+      export(projectId: $projectId, sessionId: $sessionId,exportAsCsv:$exportAsCsv)
     }
   `,
 
   EXPORT_PROJECT_BY_PROJECT_ID: gql`
   query ($projectId: ID!, $exportOptions: JSONString) {
     exportProject(projectId: $projectId, exportOptions: $exportOptions)
-  }  
+  }
 `,
   PREPARE_PROJECT_EXPORT: gql`
   query ($projectId: ID!, $exportOptions: JSONString) {
@@ -336,7 +336,7 @@ export const queries = {
       byteSize
       byteReadable
     }
-  }  
+  }
   `,
   GET_CURRENT_WEAK_SUPERVISION_RUN: gql`
   query ($projectId: ID!) {
@@ -357,7 +357,7 @@ export const queries = {
       resultCount
     }
   }
-  
+
   `,
   GET_PROJECT_TOKENIZATION: gql`
   query ($projectId: ID!) {
@@ -372,7 +372,7 @@ export const queries = {
       startedAt
       finishedAt
     }
-  }  
+  }
   `,
   GET_ATTRIBUTE_BY_ATTRIBUTE_ID: gql`
   query($projectId: ID!, $attributeId: ID!){
@@ -381,7 +381,7 @@ export const queries = {
       name
       dataType
       isPrimaryKey
-      relativePosition    
+      relativePosition
       userCreated
       sourceCode
       state
@@ -393,7 +393,7 @@ export const queries = {
   query($projectId: ID!, $attributeId: ID!){
     calculateUserAttributeSampleRecords(projectId: $projectId, attributeId: $attributeId) {
       recordIds
-      calculatedAttributes 
+      calculatedAttributes
     }
   }
   `,
@@ -418,7 +418,7 @@ export const queries = {
       checkedAt
     }
   }
-  
+
 `,
   LINK_LOCKED: gql`
   query ($projectId: ID!, $linkRoute: String!) {

@@ -367,7 +367,7 @@ export class DataBrowserComponent implements OnInit, OnDestroy {
     this.searchGroupOrder.length = 0;
     this.searchGroups = new Map<string, SearchGroupElement>();
 
-    //Record Category    
+    //Record Category
     this.fullSearch.set(
       "RECORD_CATEGORY",
       this.formBuilder.group({ CATEGORY: "SCALE" })
@@ -603,7 +603,7 @@ export class DataBrowserComponent implements OnInit, OnDestroy {
   _orderByFormArray(): FormArray {
     let array = this.formBuilder.array([]);
     for (let i = 0; i < this.attributesSortOrder.length; i++) {
-      array.push(this.getOrderByGroup(this.attributes.get(this.attributesSortOrder[i].key).name, true, -1)) //1, //-1 desc, 1 asc     
+      array.push(this.getOrderByGroup(this.attributes.get(this.attributesSortOrder[i].key).name, true, -1)) //1, //-1 desc, 1 asc
     }
     array.push(this.getOrderByGroup(StaticOrderByKeys.WEAK_SUPERVISION_CONFIDENCE, false, -1));
     array.push(this.getOrderByGroup(StaticOrderByKeys.MODEL_CALLBACK_CONFIDENCE, false, -1));
@@ -2017,7 +2017,7 @@ export class DataBrowserComponent implements OnInit, OnDestroy {
   requestFileExport(projectId: string): void {
     this.downloadMessage = DownloadState.PREPARATION;
 
-    this.projectApolloService.exportRecords(projectId, this.extendedRecords.sessionId).subscribe((e) => {
+    this.projectApolloService.exportRecords(projectId, this.extendedRecords.sessionId,false).subscribe((e) => {
       this.downloadMessage = DownloadState.DOWNLOAD;
       const downloadContent = JSON.parse(e);
       this.download('export.json', downloadContent);

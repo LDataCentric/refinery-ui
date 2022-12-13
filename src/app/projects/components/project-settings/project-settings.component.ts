@@ -939,17 +939,30 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     });
   }
 
-  requestFileExport(projectId: string): void {
+  requestFileExport(projectId: string,isCsv:boolean): void {
     this.downloadMessage = DownloadState.PREPARATION;
-    this.projectApolloService.exportRecords(projectId).subscribe((e) => {
-      this.downloadMessage = DownloadState.DOWNLOAD;
-      const downloadContent = JSON.parse(e);
-      this.downloadText('export.json', downloadContent);
-      const timerTime = Math.max(2000, e.length * 0.0001);
-      timer(timerTime).subscribe(
-        () => (this.downloadMessage = DownloadState.NONE)
-      );
-    });
+    if(!isCsv){
+      this.projectApolloService.exportRecords(projectId,null,false).subscribe((e) => {
+        this.downloadMessage = DownloadState.DOWNLOAD;
+        const downloadContent = JSON.parse(e);
+        this.downloadText('export.json', downloadContent);
+        const timerTime = Math.max(2000, e.length * 0.0001);
+        timer(timerTime).subscribe(
+          () => (this.downloadMessage = DownloadState.NONE)
+        );
+      });
+    }
+    else
+    {
+      this.projectApolloService.exportRecords(projectId,null,true).subscribe((e) => {
+        this.downloadMessage = DownloadState.DOWNLOAD;
+        this.downloadText('export.csv', e);
+        const timerTime = Math.max(2000, e.length * 0.0001);
+        timer(timerTime).subscribe(
+          () => (this.downloadMessage = DownloadState.NONE)
+        );
+      });
+    }
   }
 
   requestProjectSize() {
@@ -1118,5 +1131,16 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
             });
         }
       });
+  }
+
+  downloadRecord($event:string){
+    if($event=="Dowload as .csv file"){
+      console.log(1)
+      this.requestFileExport(this.project.id,true)
+    }
+    else{
+      this.requestFileExport(this.project.id,false)
+      console.log(2)
+    }
   }
 }

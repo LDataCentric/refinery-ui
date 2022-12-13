@@ -16,7 +16,7 @@ export class OrganizationApolloService {
   private apollo: ApolloChecker;
   constructor(private apolloBase: Apollo) { this.apollo = new ApolloChecker(this.apolloBase); }
 
-  createOrganization(name: string) {
+  createOrganization(name: string=null) {
     return this.apollo
       .mutate({
         mutation: mutations.CREATE_ORGANIZATION,

@@ -2,10 +2,10 @@ import { gql } from 'apollo-angular';
 
 export const mutations = {
   CREATE_ORGANIZATION: gql`
-    mutation ($name: String!) {
+    mutation ($name: String) {
       createOrganization(name: $name) {
         organization {
-          id
+          name
         }
       }
     }
@@ -23,7 +23,7 @@ export const mutations = {
     postEvent(eventName: $eventName, eventData: $eventData) {
       ok
     }
-  }  
+  }
   `,
   CREATE_COMMENT: gql`
   mutation ($comment: String!, $xftype: String!, $xfkey: ID!, $projectId: ID, $isPrivate: Boolean) {
@@ -31,7 +31,7 @@ export const mutations = {
       ok
     }
   }
-  
+
   `,
   DELETE_COMMENT: gql`
   mutation ($commentId: ID!, $projectId: ID) {
