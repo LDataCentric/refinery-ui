@@ -329,6 +329,18 @@ export class WeakSourceApolloService {
     return [query, vc]
   }
 
+  getPayloadById(projectId: string, taskId: string){
+    return this.apollo.query({
+      query:queries.GET_TASK_BY_TASK_ID,
+      variables:{
+        projectId:projectId,
+        payloadId:taskId
+      },
+      fetchPolicy: 'no-cache',
+    }).pipe(map((result)=>{
+      return result["data"]["payloadByPayloadId"]
+    }))
+  }
 
   updateInformationSource(
     projectId: string,

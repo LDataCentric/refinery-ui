@@ -29,5 +29,7 @@ export class TableComponent implements OnInit {
   filterRows($event): void{
     this.TbodyComponent.applyFilter($event);
   }
-
+  trainModels():void{
+    this.TbodyComponent.trainModels()
+  }
 }

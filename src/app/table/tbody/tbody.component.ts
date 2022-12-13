@@ -7,6 +7,7 @@ import { Column, ColumnType, DataType } from '../../base/entities/table-column';
 import { OrganizationApolloService } from 'src/app/base/services/organization/organization-apollo.service';
 import { RecordApolloService } from 'src/app/base/services/record/record-apollo.service';
 import { ProjectApolloService } from '../../base/services/project/project-apollo.service';
+import { WeakSourceApolloService } from 'src/app/base/services/weak-source/weak-source-apollo.service';
 import { first, map } from 'rxjs/operators';
 import { Observable, Subscription, forkJoin, pipe} from 'rxjs';
 import { RouteService } from 'src/app/base/services/route.service';
@@ -26,6 +27,7 @@ export class TbodyComponent implements OnInit {
   constructor(    private projectApolloService: ProjectApolloService,
                   private recordApolloService: RecordApolloService,
                   private organizationService: OrganizationApolloService,
+                  private weakSourceService: WeakSourceApolloService,
                   private router: Router,
                   private routeService: RouteService,
                   private activatedRoute: ActivatedRoute)
@@ -62,6 +64,9 @@ export class TbodyComponent implements OnInit {
   scrollLock = false;
   recordLabelAssociationsQuery$: any;
   recordLabelAssociations$: any;
+  taskQuerie$:any;
+  task$:any;
+  sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 
 
@@ -297,6 +302,8 @@ export class TbodyComponent implements OnInit {
   getLabelingTasks(projectID: string): Observable<any>{
     [this.labelingTasksQuery$, this.labelingTasks$] = this.projectApolloService.getLabelingTasksByProjectId(projectID);
     this.labelingTasks$.subscribe((tasks) => {
+      console.log("labeling task")
+      console.log(tasks)
       tasks.forEach(element => {
         if (element.taskType === "MULTICLASS_CLASSIFICATION")
         {
@@ -304,7 +311,7 @@ export class TbodyComponent implements OnInit {
           this.labelingTaskColumns.push(element);
           if (element.informationSources.length > 0){
             element.informationSources.forEach(infSOurce => {
-              // console.log(infSOurce);
+              console.log(infSOurce);
               // console.log(infSOurce.type);
               if (infSOurce.type === InformationSourceType.ACTIVE_LEARNING){
                 this.predictionsColumns.push(infSOurce);
@@ -446,6 +453,31 @@ export class TbodyComponent implements OnInit {
     //     this.showUserData(this.loggedInUser.id);
     //   }
     // }
+  }
+  async trainModels():Promise<void> {
+    //USE NEW FUNCTION THAT HANDLE IT'S ON THE BACK-END
+    // console.log(this.predictionsColumns)
+    // this.predictionsColumns.forEach(async infSource=>{
+    //   let result = await this.weakSourceService.createTask(this.project.id,infSource.id).pipe(first()).toPromise();
+    //   console.log(result)
+    //   console.log((result.data as any).createPayload.payload.id)
+    //   console.log(this.project.id)
+    //   let payload = await this.weakSourceService.getPayloadById(this.project.id,(result.data as any).createPayload.payload.id).pipe(first()).toPromise();
+    //   console.log(payload)
+    //   while(payload.state != 'FINISHED'|| payload.state!='FAILED'){
+    //     console.log("dormiu")
+    //     await this.sleep(5000)
+    //     payload = await this.weakSourceService.getPayloadById(this.project.id,(result.data as any).createPayload.payload.id).pipe(first()).toPromise();
+    //     console.log(payload)
+    //     if(payload.state=='FAILED'|| payload.state=="FINISHED"){
+    //       break
+    //     }
+    //   }
+    //   console.log(payload.state)
+    })
+      // let result =  await this.weakSourceService.createTask(this.project.id,this.predictionsColumns[0].id).pipe(first()).toPromise();
+
+
   }
 
 
