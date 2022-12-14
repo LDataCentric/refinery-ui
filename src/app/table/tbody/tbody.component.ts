@@ -474,7 +474,7 @@ export class TbodyComponent implements OnInit {
     //     }
     //   }
     //   console.log(payload.state)
-    })
+    // }
       // let result =  await this.weakSourceService.createTask(this.project.id,this.predictionsColumns[0].id).pipe(first()).toPromise();
 
 

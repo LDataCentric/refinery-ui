@@ -939,30 +939,25 @@ export class ProjectSettingsComponent implements OnInit, OnDestroy, AfterViewIni
     });
   }
 
-  requestFileExport(projectId: string,isCsv:boolean): void {
+  requestFileExport(projectId: string, isCsv: boolean): void {
+    let export_name = ""
     this.downloadMessage = DownloadState.PREPARATION;
     if(!isCsv){
-      this.projectApolloService.exportRecords(projectId,null,false).subscribe((e) => {
-        this.downloadMessage = DownloadState.DOWNLOAD;
-        const downloadContent = JSON.parse(e);
-        this.downloadText('export.json', downloadContent);
-        const timerTime = Math.max(2000, e.length * 0.0001);
-        timer(timerTime).subscribe(
-          () => (this.downloadMessage = DownloadState.NONE)
-        );
-      });
+      export_name = projectId + ".json";
     }
     else
     {
-      this.projectApolloService.exportRecords(projectId,null,true).subscribe((e) => {
-        this.downloadMessage = DownloadState.DOWNLOAD;
-        this.downloadText('export.csv', e);
-        const timerTime = Math.max(2000, e.length * 0.0001);
-        timer(timerTime).subscribe(
-          () => (this.downloadMessage = DownloadState.NONE)
-        );
-      });
+      export_name = projectId + ".csv";
     }
+    this.projectApolloService.exportRecords(projectId,null,isCsv).subscribe((e) => {
+      this.downloadMessage = DownloadState.DOWNLOAD;
+      const downloadContent = JSON.parse(e);
+      this.downloadText(export_name, downloadContent);
+      const timerTime = Math.max(2000, e.length * 0.0001);
+      timer(timerTime).subscribe(
+        () => (this.downloadMessage = DownloadState.NONE)
+      );
+    });
   }
 
   requestProjectSize() {
