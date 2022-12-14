@@ -12,6 +12,17 @@ export const mutations = {
     }
   `,
 
+
+  TRAIN_ALL_MODELS:gql`
+  mutation ($projectId: ID!){
+    trainAllModels (projectId: $projectId) {
+      payload{
+        id
+      }
+    }
+  }
+  `,
+
   TOGGLE_INFORMATION_SOURCE_SELECTED: gql`
     mutation ($projectId: ID!, $informationSourceId: ID!) {
       toggleInformationSource(projectId: $projectId, informationSourceId: $informationSourceId) {
@@ -34,14 +45,14 @@ export const mutations = {
       }
     }
   }
-  
+
   `,
   CREATE_ZERO_SHOT_INFORMATION_SOURCE: gql`
   mutation ($projectId: ID!, $targetConfig: String!, $labelingTaskId: ID!, $attributeId: ID) {
     createZeroShotInformationSource(projectId: $projectId, targetConfig: $targetConfig, labelingTaskId: $labelingTaskId, attributeId: $attributeId) {
       id
     }
-  }  
+  }
   `,
 
   DELETE_INFORMATION_SOURCE: gql`
@@ -61,7 +72,7 @@ export const mutations = {
       ok
     }
   }
-  
+
 `,
 
   INITIATE_WEAK_SUPERVISIONS: gql`
@@ -88,7 +99,7 @@ export const mutations = {
       ok
     }
   }
-  
+
   `,
 
   SET_ALL_INFORMATION_SOURCES: gql`
@@ -97,7 +108,7 @@ export const mutations = {
       ok
     }
   }
-  
+
   `,
 
   SET_ALL_MODEL_CALLBACKS: gql`
@@ -106,7 +117,7 @@ export const mutations = {
       ok
     }
   }
-  
+
   `,
 
   MODEL_PROVIDER_DELETE_MODEL: gql`

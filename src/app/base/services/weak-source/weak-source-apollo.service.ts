@@ -24,6 +24,15 @@ export class WeakSourceApolloService {
     });
   }
 
+  trainAllModels(projectId:string){
+    return this.apollo.mutate({
+      mutation:mutations.TRAIN_ALL_MODELS,
+      variables:{
+        projectId:projectId
+      }
+    })
+  }
+
   deleteInformationSource(projectId: string, labelFunctionId: string) {
     return this.apollo.mutate({
       mutation: mutations.DELETE_INFORMATION_SOURCE,

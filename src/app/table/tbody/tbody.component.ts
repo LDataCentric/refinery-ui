@@ -455,29 +455,7 @@ export class TbodyComponent implements OnInit {
     // }
   }
   async trainModels():Promise<void> {
-    //USE NEW FUNCTION THAT HANDLE IT'S ON THE BACK-END
-    // console.log(this.predictionsColumns)
-    // this.predictionsColumns.forEach(async infSource=>{
-    //   let result = await this.weakSourceService.createTask(this.project.id,infSource.id).pipe(first()).toPromise();
-    //   console.log(result)
-    //   console.log((result.data as any).createPayload.payload.id)
-    //   console.log(this.project.id)
-    //   let payload = await this.weakSourceService.getPayloadById(this.project.id,(result.data as any).createPayload.payload.id).pipe(first()).toPromise();
-    //   console.log(payload)
-    //   while(payload.state != 'FINISHED'|| payload.state!='FAILED'){
-    //     console.log("dormiu")
-    //     await this.sleep(5000)
-    //     payload = await this.weakSourceService.getPayloadById(this.project.id,(result.data as any).createPayload.payload.id).pipe(first()).toPromise();
-    //     console.log(payload)
-    //     if(payload.state=='FAILED'|| payload.state=="FINISHED"){
-    //       break
-    //     }
-    //   }
-    //   console.log(payload.state)
-    // }
-      // let result =  await this.weakSourceService.createTask(this.project.id,this.predictionsColumns[0].id).pipe(first()).toPromise();
-
-
+    await this.weakSourceService.trainAllModels(this.project.id).pipe(first()).toPromise()
   }
 
 

@@ -85,7 +85,7 @@ export const queries = {
         confidence
       }
     }
-  }  
+  }
   `,
   GET_ZERO_SHOT_10_RANDOM_RECORDS: gql`
   query ($projectId: ID!, $informationSourceId: ID!, $labels: JSONString) {
@@ -120,7 +120,7 @@ export const queries = {
 GET_LABELING_FUNCTION_ON_10_RECORDS: gql`
   query ($projectId: ID!, $informationSourceId: ID!) {
     getLabelingFunctionOn10Records(projectId: $projectId, informationSourceId: $informationSourceId) {
-      records {	
+      records {
         recordId
         calculatedLabels
         fullRecordData
